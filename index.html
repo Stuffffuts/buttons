@@ -2,36 +2,77 @@
 <html>
   <body>
 
-    <h1>Buttons</h1>
+    <h1>Cosmic Game</h1>
 
-    <p>Money: <span id="money">0</span></p>
-    <p>Multiplier: <span id="multi">1</span></p>
+    <p>Cosmic Process: <span id="cosmic">0</span></p>
+    <p>Atoms: <span id="atoms">1</span></p>
+    <p>Molecules: <span id="molecules">0</span></p>
+    <p>Macromolecules: <span id="macro">0</span></p>
 
-    <button onclick="addMoney()">Click me!</button>
+    <button onclick="addCosmic()">Generate</button>
     <br><br>
-    <button onclick="buyMulti()">Buy x2 (cost: 10)</button>
+
+    <button onclick="buyAtoms()">Buy Atoms (+1) (cost: 10 cosmic)</button><br><br>
+
+    <button onclick="buyMolecules()">25 Atoms → 1 Molecule</button><br><br>
+
+    <button onclick="buyMacro()">100 Molecules → 1 Macromolecule</button>
 
     <script>
-      let money = 0;
-      let multi = 1;
-      let cost = 10;
+      let cosmic = 0;
+      let atoms = 1;
+      let molecules = 0;
+      let macro = 0;
 
-      function addMoney() {
-        money = money + multi;
-        document.getElementById("money").innerText = money;
+      function updateDisplay() {
+        document.getElementById("cosmic").innerText = Math.floor(cosmic);
+        document.getElementById("atoms").innerText = atoms;
+        document.getElementById("molecules").innerText = molecules;
+        document.getElementById("macro").innerText = macro;
       }
 
-      function buyMulti() {
-        if (money >= cost) {
-          money = money - cost;
-          multi = multi + 1;
+      function addCosmic() {
+        let gain = atoms;
 
-          document.getElementById("money").innerText = money;
-          document.getElementById("multi").innerText = multi;
+        // buffs
+        gain *= (1 + molecules * 1.5); // each molecule = 2.5x total effect (1 + 1.5)
+        gain *= (1 + macro * 2);       // macro boosts cosmic more
+
+        cosmic += gain;
+        updateDisplay();
+      }
+
+      function buyAtoms() {
+        if (cosmic >= 10) {
+          cosmic -= 10;
+          atoms += 1;
+          updateDisplay();
         } else {
-          alert("Not enough money!");
+          alert("Not enough cosmic process!");
         }
       }
+
+      function buyMolecules() {
+        if (atoms >= 25) {
+          atoms -= 25;
+          molecules += 1;
+          updateDisplay();
+        } else {
+          alert("Need 25 atoms!");
+        }
+      }
+
+      function buyMacro() {
+        if (molecules >= 100) {
+          molecules -= 100;
+          macro += 1;
+          updateDisplay();
+        } else {
+          alert("Need 100 molecules!");
+        }
+      }
+
+      updateDisplay();
     </script>
 
   </body>
