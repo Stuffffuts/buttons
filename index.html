@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html>
-<body>
-  <h1>💰 Money Game</h1>
-  <p>Money: <span id="m">0</span></p>
-  <p>Multi: <span id="x">1</span></p>
-  <button id="clk">Click me!</button>
-  <button id="buy">Buy x2 (cost10)</button>
+  <body>
 
-  <script>
-    // m = money, x = multiplier, c = cost
-    let m=0,x=1,c=10;
-    // u() updates displayed values
-    const u=()=>{ 
-      document.getElementById("m").innerText=m;
-      document.getElementById("x").innerText=x;
-    };
+    <h1>Buttons</h1>
 
-    // add money on click
-    document.getElementById("clk").onclick=_=>{
-      m+=x; u();
-    };
+    <p>Money: <span id="money">0</span></p>
+    <p>Multiplier: <span id="multi">1</span></p>
 
-    // buy multiplier if enough money
-    document.getElementById("buy").onclick=_=>{
-      if(m<c) return alert("Not enough money!");
-      m-=c; x++; u();
-    };
-  </script>
-</body>
+    <button onclick="addMoney()">Click me!</button>
+    <br><br>
+    <button onclick="buyMulti()">Buy x2 (cost: 10)</button>
+
+    <script>
+      let money = 0;
+      let multi = 1;
+      let cost = 10;
+
+      function addMoney() {
+        money = money + multi;
+        document.getElementById("money").innerText = money;
+      }
+
+      function buyMulti() {
+        if (money >= cost) {
+          money = money - cost;
+          multi = multi + 1;
+
+          document.getElementById("money").innerText = money;
+          document.getElementById("multi").innerText = multi;
+        } else {
+          alert("Not enough money!");
+        }
+      }
+    </script>
+
+  </body>
 </html>
