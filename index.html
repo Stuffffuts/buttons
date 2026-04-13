@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <body>
+<body>
+  <h1>💰 Money Game</h1>
+  <p>Money: <span id="m">0</span></p>
+  <p>Multi: <span id="x">1</span></p>
+  <button id="clk">Click me!</button>
+  <button id="buy">Buy x2 (cost10)</button>
 
-    <h1>buttons</h1>
+  <script>
+    // m = money, x = multiplier, c = cost
+    let m=0,x=1,c=10;
+    // u() updates displayed values
+    const u=()=>{ 
+      document.getElementById("m").innerText=m;
+      document.getElementById("x").innerText=x;
+    };
 
-    <p>Money: <span id="money">0</span></p>
+    // add money on click
+    document.getElementById("clk").onclick=_=>{
+      m+=x; u();
+    };
 
-    <button onclick="addMoney()">Click me!</button>
-
-    <script>
-      let money = 0;
-
-      function addMoney() {
-        money = money + 1;
-        document.getElementById("money").innerText = money;
-      }
-    </script>
-
-  </body>
+    // buy multiplier if enough money
+    document.getElementById("buy").onclick=_=>{
+      if(m<c) return alert("Not enough money!");
+      m-=c; x++; u();
+    };
+  </script>
+</body>
 </html>
